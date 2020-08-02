@@ -96,11 +96,12 @@ public class MatrixItTest {
     @Test
     public void whenSeveralEmpty() {
         int[][] in = {
-                {1}, {}, {2}, {}, {}
+                {1}, {}, {2}, null, {}
         };
         MatrixIt it = new MatrixIt(in);
         assertThat(it.next(), is(1));
         assertThat(it.next(), is(2));
+        assertThat(it.hasNext(), is(false));
     }
 
     @Test
