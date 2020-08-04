@@ -20,9 +20,7 @@ public class SimpleArray<T> implements Iterable<T> {
 
     public boolean add(T model) {
         if (++size == data.length) {
-            Object[] newData = new Object[(int) (data.length * multiplier)];
-            newData = Arrays.copyOf(newData, size);
-            data = newData;
+            data = Arrays.copyOf(data, (int) (data.length * multiplier));
         }
         data[size - 1] = model;
         return true;
@@ -31,7 +29,7 @@ public class SimpleArray<T> implements Iterable<T> {
     @SuppressWarnings("unchecked")
     public T set(int index, T model) {
         T oldValue = (T) data[Objects.checkIndex(index, size)];
-        data[Objects.checkIndex(index, size)] = model;
+        data[index] = model;
         return oldValue;
     }
 
