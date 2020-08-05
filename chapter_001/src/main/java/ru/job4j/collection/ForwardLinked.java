@@ -38,6 +38,15 @@ public class ForwardLinked<E> implements Iterable<E> {
         return node.value;
     }
 
+    public void deleteFirst() {
+        if (head == null) {
+            throw new NoSuchElementException();
+        }
+        head = head.next;
+        modCount++;
+        size--;
+    }
+
     @Override
     public Iterator<E> iterator() {
         return new Iterator<>() {

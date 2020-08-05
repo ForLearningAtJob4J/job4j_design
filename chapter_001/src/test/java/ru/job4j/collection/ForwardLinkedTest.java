@@ -53,4 +53,12 @@ public class ForwardLinkedTest {
         list.add("second");
         it.next();
     }
+
+    @Test
+    public void whenGetSizeOfTwoThenTwo() {
+        ForwardLinked<String> list = new ForwardLinked<>();
+        list.add("first");
+        list.add("second");
+        assertThat(list.size(), is(2));
+    }
 }
