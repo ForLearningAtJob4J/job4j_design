@@ -72,12 +72,15 @@ public class ForwardLinked<E> implements Iterable<E> {
     @Override
     public Iterator<E> iterator() {
         return new Iterator<>() {
-            private int pointer;
+            private Node<E> node = head;
             private int expectedModCount = modCount;
 
             @Override
             public boolean hasNext() {
-                return pointer < size;
+                if (expectedModCount != modCount) {
+                    throw new ConcurrentModificationException();
+                }
+                return node != null;
             }
 
             @Override
@@ -88,7 +91,9 @@ public class ForwardLinked<E> implements Iterable<E> {
                 if (expectedModCount != modCount) {
                     throw new ConcurrentModificationException();
                 }
-                return get(pointer++);
+                E value = node.value;
+                node = node.next;
+                return value;
             }
         };
     }
