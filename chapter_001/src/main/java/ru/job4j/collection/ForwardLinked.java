@@ -18,13 +18,26 @@ public class ForwardLinked<E> implements Iterable<E> {
         size++;
         modCount++;
         Node<E> newNode = new Node<>(value, null);
-        if (head == null) {
+        if (size == 1) {
             head = newNode;
             tail = newNode;
             return;
         }
         tail.next = newNode;
         tail = newNode;
+    }
+
+    public void addFirst(E value) {
+        size++;
+        modCount++;
+        Node<E> newNode = new Node<>(value, null);
+        if (size == 1) {
+            head = newNode;
+            tail = newNode;
+            return;
+        }
+        newNode.next = head;
+        head = newNode;
     }
 
     public E get(int index) {
@@ -67,6 +80,16 @@ public class ForwardLinked<E> implements Iterable<E> {
         size--;
 
         return value;
+    }
+
+    public void revert() {
+        if (size > 0) {
+            Node<E> pointer = head;
+            while (pointer != null) {
+                addFirst(pointer.value);
+                pointer = pointer.next;
+            }
+        }
     }
 
     @Override
