@@ -81,5 +81,6 @@ public class ForwardLinkedTest {
         Iterator<Integer> it = linked.iterator();
         assertThat(it.next(), is(2));
         assertThat(it.next(), is(1));
+        assertThat(it.hasNext(), is(false));
     }
 }
