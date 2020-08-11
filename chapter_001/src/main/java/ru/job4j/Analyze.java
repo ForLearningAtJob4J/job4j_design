@@ -6,7 +6,7 @@ public class Analyze {
 
     public Info diff(List<User> previous, List<User> current) {
         Info ret = new Info();
-        Hashtable<Integer, User> ht = new Hashtable<>(previous.size() + current.size());
+        Map<Integer, User> ht = new HashMap<>(previous.size() + current.size());
         for (User user: previous) {
             ht.put(user.id, user);
         }
