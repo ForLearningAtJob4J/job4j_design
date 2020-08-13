@@ -54,16 +54,16 @@ public class User {
 
     @Override
     public int hashCode() {
-        return name.charAt(0);
-//        int result = name.hashCode();
-//        result = 31 * result + birthday.hashCode();
-//        return result;
+        int result = name.hashCode();
+        result = 31 * result + birthday.hashCode();
+        return result;
     }
-    //    @Override
-//    public String toString() {
-//        return "User: {" + name + "; ("
-//                + dateFormat.format(birthday.getTime()) + ") has "
-//                + (children == 0 ? "no" : children)
-//                + (children == 1 ? " child" : " children") + "}";
-//    }
+
+    @Override
+    public String toString() {
+        return "User: {" + name + "; ("
+                + dateFormat.format(birthday.getTime()) + ") has "
+                + (children == 0 ? "no" : children)
+                + (children == 1 ? " child" : " children") + "}";
+    }
 }
