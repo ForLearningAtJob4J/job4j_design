@@ -4,23 +4,25 @@ import java.io.BufferedReader;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Analyze {
     public void unavailable(String sourceFileName, String targetFileName) {
-        try (BufferedReader source = new BufferedReader(new FileReader(sourceFileName));
-             PrintWriter out = new PrintWriter(new FileOutputStream(targetFileName))) {
-            List<String> lines = source.lines().collect(Collectors.toList());
+        List<String> lines = new ArrayList<>();
+        String line;
+        String buf = "";
+        try (BufferedReader source = new BufferedReader(new FileReader(sourceFileName))) {
             boolean isFailed = false;
-            for (String s: lines) {
-                if (!isFailed && (s.startsWith("400")
-                        || (s.startsWith("500")))) {
-                    out.printf("%s;", s.substring(s.indexOf(" ") + 1));
+            while ((line = source.readLine()) != null) {
+                if (!isFailed && (line.startsWith("400")
+                        || (line.startsWith("500")))) {
+                    buf = line.substring(line.indexOf(" ") + 1) + ";";
                     isFailed = true;
-                } else if (isFailed && (s.startsWith("200")
-                        || (s.startsWith("300")))) {
-                    out.printf("%s;%n", s.substring(s.indexOf(" ") + 1));
+                } else if (isFailed && (line.startsWith("200")
+                        || (line.startsWith("300")))) {
+                    buf += line.substring(line.indexOf(" ") + 1) + ";";
+                    lines.add(buf);
                     isFailed = false;
                 }
             }
@@ -28,6 +30,11 @@ public class Analyze {
             e.printStackTrace();
         }
 
+        try (PrintWriter out = new PrintWriter(new FileOutputStream(targetFileName))) {
+            lines.forEach(out::println);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {
