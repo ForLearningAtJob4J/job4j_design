@@ -8,17 +8,24 @@ import java.util.*;
 import static java.nio.file.FileVisitResult.CONTINUE;
 
 public class DubFinder implements FileVisitor<Path> {
-    public class FileInfo {
-        Path file;
+    public static class FileInfo {
+        private Path file;
         String name;
-        String fullCanonicalName;
+        String realPath;
         long size;
+        boolean isReal;
+
+        public FileInfo(String name, long size) {
+            this.name = name;
+            this.size = size;
+        }
 
         public FileInfo(Path file) throws IOException {
             this.file = file;
             this.name = file.getFileName().toString();
-            this.fullCanonicalName = file.toRealPath(LinkOption.NOFOLLOW_LINKS).toString();
+            this.realPath = file.toRealPath().toString();
             this.size = Files.size(file);
+            this.isReal = true;
         }
 
         @Override
@@ -47,11 +54,11 @@ public class DubFinder implements FileVisitor<Path> {
         }
     }
 
-    List<FileInfo> paths;
+    Map<FileInfo, FileInfo> paths;
     Map<FileInfo, List<FileInfo>> copies;
 
     public DubFinder() {
-        paths = new ArrayList<>();
+        paths = new HashMap<>();
         copies = new HashMap<>();
     }
 
@@ -63,16 +70,17 @@ public class DubFinder implements FileVisitor<Path> {
     @Override
     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
         FileInfo fi = new FileInfo(file);
-        if (paths.contains(fi)) {
+
+        if (paths.get(fi) != null) {
             List<FileInfo> list = copies.get(fi);
             if (list == null) {
                 list = new ArrayList<>();
-                list.add(paths.get(paths.indexOf(fi)));
+                list.add(paths.get(fi));
             }
             list.add(fi);
             copies.put(fi, list);
         } else {
-            paths.add(fi);
+            paths.put(fi, fi);
         }
         return CONTINUE;
     }
