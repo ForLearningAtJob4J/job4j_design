@@ -10,9 +10,13 @@ public class ArgsName {
     public String get(String key) {
         String ret = values.get(key);
         if (ret == null) {
-            throw new IllegalArgumentException("Args don't have such key!");
+            throw new IllegalArgumentException("Args don't have key: " + key);
         }
         return ret;
+    }
+
+    public String peek(String key) {
+        return values.get(key);
     }
 
     private void parse(String[] args) {
