@@ -21,10 +21,8 @@ public class DubFinderTest {
         });
         assertThat(dubsMap.size(), is(2));
         DubFinder.FileInfo fi1 = new DubFinder.FileInfo("res.txt", 40);
-        assertNotNull(dubsMap.get(fi1));
         assertThat(dubsMap.get(fi1).size(), is(3));
         DubFinder.FileInfo fi2 = new DubFinder.FileInfo("status.txt", 82);
-        assertNotNull(dubsMap.get(fi2));
         assertThat(dubsMap.get(fi2).size(), is(2));
     }
 }
