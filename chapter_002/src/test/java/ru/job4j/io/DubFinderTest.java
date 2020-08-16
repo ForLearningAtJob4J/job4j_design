@@ -7,6 +7,8 @@ import static org.junit.Assert.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
+import java.util.Map;
 
 public class DubFinderTest {
     @Test
@@ -14,7 +16,7 @@ public class DubFinderTest {
         DubFinder dirWalker = new DubFinder();
         Files.walkFileTree(Paths.get("../data/test"), dirWalker);
         System.out.println(Paths.get("../data/test").toAbsolutePath());
-        var dubsMap = dirWalker.getCopies();
+        Map<DubFinder.FileInfo, List<DubFinder.FileInfo>> dubsMap = dirWalker.getCopies();
         dubsMap.forEach((fileInfo, fileInfos) -> {
             System.out.println(fileInfo.name + " == " + fileInfo.size + " bytes");
             fileInfos.forEach(path -> System.out.println("\t" + path.realPath));
