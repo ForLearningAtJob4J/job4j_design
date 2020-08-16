@@ -18,7 +18,7 @@ public class Dir {
         }
         Arrays.stream(Objects.requireNonNull(file.listFiles()))
                 .filter(File::isFile)
-                .map(subFile -> String.format("%s; %,d bytes", subFile.getName(), subFile.getTotalSpace()))
+                .map(subFile -> String.format("%s; %,d bytes", subFile.getName(), subFile.length()))
                 .forEach(System.out::println);
     }
 }
