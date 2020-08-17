@@ -1,60 +1,69 @@
 package ru.job4j.io;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
 public class Chat {
-    final static String BOT_PHRASE_FILE_NAME = "bot_phrase.txt";
-    final static String LOG_FILE_NAME = "chat_log.txt";
+    private static final String BOT_PHRASE_FILE_NAME = "bot_phrase.txt";
+    private static final String LOG_FILE_NAME = "chat_log.txt";
+
+    private static final String STOP_WORD = "стоп";
+    private static final String CONTINUE_WORD = "продолжить";
+    private static final String QUIT_WORD = "завершить";
+
+    static List<String> botPhrases = new ArrayList<>();
+    static StringBuffer logBuffer = new StringBuffer();
+    private static final int NUMBER_OF_SYMBOLS_TO_FLUSH = 100;
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Random random = new Random(System.currentTimeMillis());
         boolean active = true;
         String userInput;
+        init();
         do {
             if (active) {
-                String answer = getBotInput(random.nextInt());
+                String answer = botPhrases.get(Math.abs(random.nextInt()) % botPhrases.size());
                 System.out.println(answer);
                 write(answer);
             }
             userInput = scanner.nextLine();
             write(userInput);
-            if ("стоп".equals(userInput)) {
+            if (STOP_WORD.equals(userInput)) {
                 active = false;
-            } else if ("продолжить".equals(userInput)) {
+            } else if (CONTINUE_WORD.equals(userInput)) {
                 active = true;
             }
-        } while (!"завершить".equals(userInput));
+        } while (!QUIT_WORD.equals(userInput));
+
+        writeLogToFile();
     }
 
     private static void write(String line) {
+        logBuffer.append(line).append(System.lineSeparator());
+
+        if (logBuffer.length() > NUMBER_OF_SYMBOLS_TO_FLUSH) {
+            writeLogToFile();
+        }
+    }
+
+    private static void writeLogToFile() {
         try (PrintWriter out = new PrintWriter(new BufferedOutputStream(new FileOutputStream(LOG_FILE_NAME, true)))) {
-            out.println(line);
+            out.write(logBuffer.toString());
+            logBuffer = new StringBuffer();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private static String getBotInput(long sentenceNum) {
-        String ret = "";
-        sentenceNum = Math.abs(sentenceNum) % countLines();
+    private static void init() {
         try (BufferedReader in = new BufferedReader(new FileReader(BOT_PHRASE_FILE_NAME))) {
-            ret = in.lines().skip(sentenceNum).findFirst().orElse("");
+            in.lines().forEach(botPhrases::add);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return ret;
-    }
-
-    private static long countLines() {
-        long ret = 0;
-        try (BufferedReader in = new BufferedReader(new FileReader(BOT_PHRASE_FILE_NAME))) {
-            ret = in.lines().count();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return ret;
     }
 }
