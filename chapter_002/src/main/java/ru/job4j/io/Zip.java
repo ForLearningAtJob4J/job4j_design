@@ -43,6 +43,18 @@ public class Zip {
     }
 
     public static void main(String[] args) throws IOException {
+        ArgZip argZip = processArgs(args);
+
+        var fileList = searchFiles(argZip.directory(), argZip.exclude());
+
+        rootFolder = Path.of(argZip.directory());
+
+        System.out.println("Packing " + fileList.size() + " files. Please wait...");
+        packFiles(fileList.stream().map(Path::toFile).collect(Collectors.toList()), new File(argZip.output()));
+        System.out.println("Done!");
+    }
+
+    private static ArgZip processArgs(String[] args) {
         ArgZip argZip = new ArgZip(args);
         if (!argZip.valid()) {
             throw new IllegalArgumentException("Usage: java -jar zip.jar -d=FOLDER_NAME -e=MASK_TO_EXCLUSION -o=OUTPUT_FILENAME");
@@ -55,17 +67,16 @@ public class Zip {
         if (!Files.isDirectory(folder)) {
             throw new IllegalArgumentException("Specified parameter is not a folder!");
         }
+        return argZip;
+    }
 
+    private static List<Path> searchFiles(String directory, String exclude) throws IOException {
         SearchFiles searcher = new SearchFiles(path -> {
-            PathMatcher matcher = FileSystems.getDefault().getPathMatcher("glob:*" + argZip.exclude());
+            PathMatcher matcher = FileSystems.getDefault().getPathMatcher("glob:*" + exclude);
             return !matcher.matches(path) && !Files.isDirectory(path);
         });
+        Files.walkFileTree(Path.of(directory), searcher);
 
-        Files.walkFileTree(Path.of(argZip.directory()), searcher);
-        var fileList = searcher.getPaths();
-        rootFolder = Path.of(argZip.directory());
-        System.out.println("Packing " + fileList.size() + " files. Please wait...");
-        packFiles(fileList.stream().map(Path::toFile).collect(Collectors.toList()), new File(argZip.output()));
-        System.out.println("Done!");
+        return searcher.getPaths();
     }
 }
