@@ -25,6 +25,7 @@ public class EchoServer {
                     while (!str.isEmpty()) {
                         System.out.println(str);
                         request.add(str);
+                        str = in.readLine();
                     }
                     if (QUIT_MESSAGE.equals(parseCommand(request).toUpperCase())) {
                         System.out.println("Exiting server process...");
