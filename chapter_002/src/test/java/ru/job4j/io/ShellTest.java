@@ -2,29 +2,26 @@ package ru.job4j.io;
 
 import org.junit.Test;
 
-import java.nio.file.FileSystems;
-
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
 public class ShellTest {
-    static final String PS = FileSystems.getDefault().getSeparator();
 
     @Test
     public void whenCdBack() {
         Shell shell = new Shell();
-        shell.cd(PS + "user" + PS + "..");
+        shell.cd("/user/..");
         assertThat(
-                shell.pwd(), is(PS)
+                shell.pwd(), is("/")
         );
     }
 
     @Test
     public void whenCdRoot() {
         Shell shell = new Shell();
-        shell.cd(PS);
+        shell.cd("/");
         assertThat(
-                shell.pwd(), is(PS)
+                shell.pwd(), is("/")
         );
     }
 
@@ -34,7 +31,7 @@ public class ShellTest {
         shell.cd("user");
         shell.cd("local");
         assertThat(
-                shell.pwd(), is(PS + "user" + PS + "local")
+                shell.pwd(), is("/user/local")
         );
     }
 
@@ -44,7 +41,16 @@ public class ShellTest {
         shell.cd("user");
         shell.cd("..");
         assertThat(
-                shell.pwd(), is(PS)
+                shell.pwd(), is("/")
+        );
+    }
+
+    @Test
+    public void whenCdRootBack() {
+        Shell shell = new Shell();
+        shell.cd("..");
+        assertThat(
+                shell.pwd(), is("/")
         );
     }
 }

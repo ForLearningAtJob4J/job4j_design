@@ -1,14 +1,36 @@
 package ru.job4j.io;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Shell {
-    Path curDir = Paths.get("/");
+    List<String> curDir = new LinkedList<>();
+
+    private void normalize() {
+        int i = 0;
+        while (i < curDir.size()) {
+            if (curDir.get(i).equals("..")) {
+                curDir.remove(i);
+                if (i > 1 && i < curDir.size()) {
+                    curDir.remove(i - 1);
+                }
+            }
+            i++;
+        }
+    }
+
     public void cd(String path) {
-        curDir = curDir.resolve(Paths.get(path)).normalize();
+        String[] p = path.split("/");
+        if (path.startsWith("/")) {
+            curDir = Arrays.stream(p).collect(Collectors.toList());
+        } else {
+            curDir.addAll(Arrays.asList(p));
+        }
+        normalize();
     }
 
     public String pwd() {
-        return curDir.toString();
+        return "/" + String.join("/", curDir);
     }
 }
