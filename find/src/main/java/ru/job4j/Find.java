@@ -21,31 +21,12 @@ public class Find {
             System.out.println("Usage: java -jar find.jar -d c:/ -n *.txt -m -o log.txt");
         }
 
-        Files.write(Paths.get(args.getOutputFileName()),
-                execute().stream().map(Path::toString).collect(Collectors.toList()), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
-    }
-
-    private static List<Path> execute() throws IOException {
         ConditionFileVisitor searcher = new ConditionFileVisitor();
-        Predicate<Path> predicate;
-        switch (args.getMethod()) {
-            case Regex:
-                predicate = path -> {
-                    PathMatcher matcher = FileSystems.getDefault().getPathMatcher("regex:" + args.getPattern());
-                    return matcher.matches(path) && !Files.isDirectory(path);
-                };
-                break;
-            case Mask:
-                predicate = path -> {
-                    PathMatcher matcher = FileSystems.getDefault().getPathMatcher("glob:*" + args.getPattern());
-                    return matcher.matches(path) && !Files.isDirectory(path);
-                };
-                break;
-            default:
-                predicate = path -> path.getFileName().toString().equals(args.getPattern());
-        }
-        searcher.setCondition(predicate);
+        searcher.setCondition(PredicateFactory.of(args.getMethod(), args.getPattern()));
         Files.walkFileTree(args.getDirectory(), searcher);
-        return searcher.getPaths();
+
+        Files.write(Paths.get(args.getOutputFileName()),
+                searcher.getPaths().stream().map(Path::toString).collect(Collectors.toList()),
+                StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
     }
 }

@@ -13,8 +13,8 @@ import java.util.function.Predicate;
 import static java.nio.file.FileVisitResult.CONTINUE;
 
 public class ConditionFileVisitor extends SimpleFileVisitor<Path> {
-    List<Path> paths;
-    Predicate<Path> condition;
+    private List<Path> paths;
+    private Predicate<Path> condition;
 
     public void setCondition(Predicate<Path> condition) {
         this.condition = condition;
