@@ -11,9 +11,9 @@ public class Shell {
         int i = 0;
         while (i < curDir.size()) {
             if (curDir.get(i).equals("..")) {
-                curDir.remove(i);
-                if (i > 1 && i < curDir.size()) {
-                    curDir.remove(i - 1);
+                curDir.remove(i--);
+                if (curDir.size() > 0 && i < curDir.size()) {
+                    curDir.remove(i);
                 }
             }
             i++;
