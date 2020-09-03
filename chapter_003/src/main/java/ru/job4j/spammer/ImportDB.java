@@ -1,7 +1,6 @@
 package ru.job4j.spammer;
 
 import java.io.*;
-import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -25,7 +24,9 @@ public class ImportDB {
         try (BufferedReader rd = new BufferedReader(new FileReader(dump))) {
             rd.lines().forEach(s -> {
                 String[] arr = s.split(";");
-                users.add(new User(arr[0], arr[1]));
+                if (arr.length > 1) {
+                    users.add(new User(arr[0], arr[1]));
+                }
             });
         }
         return users;
