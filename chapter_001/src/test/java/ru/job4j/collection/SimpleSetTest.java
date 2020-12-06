@@ -23,16 +23,16 @@ public class SimpleSetTest {
     public void whenAddsThenNoDubs() {
         set.add("first");
         set.add("second");
-        assertThat(set.size(), is(2));
+        assertEquals(set.size(), 2);
     }
 
     @Test
     public void whenGetItAndHasNextTwoTimeAndThenHasnt() {
         Iterator<String> it  = set.iterator();
-        assertThat(it.hasNext(), is(true));
+        assertTrue(it.hasNext());
         it.next();
-        assertThat(it.hasNext(), is(true));
+        assertTrue(it.hasNext());
         it.next();
-        assertThat(it.hasNext(), is(false));
+        assertFalse(it.hasNext());
     }
 }

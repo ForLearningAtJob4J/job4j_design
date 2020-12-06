@@ -18,41 +18,41 @@ public class EvenIteratorTest {
 
     @Test(expected = NoSuchElementException.class)
     public void shouldReturnEvenNumbersSequentially() {
-        assertThat(it.hasNext(), is(true));
-        assertThat(it.next(), is(2));
-        assertThat(it.hasNext(), is(true));
-        assertThat(it.next(), is(4));
-        assertThat(it.hasNext(), is(true));
-        assertThat(it.next(), is(6));
-        assertThat(it.hasNext(), is(false));
+        assertTrue(it.hasNext());
+        assertEquals(it.next(), Integer.valueOf(2));
+        assertTrue(it.hasNext());
+        assertEquals(it.next(), Integer.valueOf(4));
+        assertTrue(it.hasNext());
+        assertEquals(it.next(), Integer.valueOf(6));
+        assertFalse(it.hasNext());
         it.next();
     }
 
     @Test
     public void sequentialHasNextInvocationDoesntAffectRetrievalOrder() {
-        assertThat(it.hasNext(), is(true));
-        assertThat(it.hasNext(), is(true));
-        assertThat(it.next(), is(2));
-        assertThat(it.next(), is(4));
-        assertThat(it.next(), is(6));
+        assertTrue(it.hasNext());
+        assertTrue(it.hasNext());
+        assertEquals(it.next(), Integer.valueOf(2));
+        assertEquals(it.next(), Integer.valueOf(4));
+        assertEquals(it.next(), Integer.valueOf(6));
     }
 
     @Test
     public void  shouldReturnFalseIfNoAnyEvenNumbers() {
         it = new EvenNumbersIterator(new int[]{1});
-        assertThat(it.hasNext(), is(false));
+        assertFalse(it.hasNext());
     }
 
     @Test
     public void allNumbersAreEven() {
         it = new EvenNumbersIterator(new int[] {2, 4, 6, 8});
-        assertThat(it.hasNext(), is(true));
-        assertThat(it.next(), is(2));
-        assertThat(it.hasNext(), is(true));
-        assertThat(it.next(), is(4));
-        assertThat(it.hasNext(), is(true));
-        assertThat(it.next(), is(6));
-        assertThat(it.hasNext(), is(true));
-        assertThat(it.next(), is(8));
+        assertTrue(it.hasNext());
+        assertEquals(it.next(), Integer.valueOf(2));
+        assertTrue(it.hasNext());
+        assertEquals(it.next(), Integer.valueOf(4));
+        assertTrue(it.hasNext());
+        assertEquals(it.next(), Integer.valueOf(6));
+        assertTrue(it.hasNext());
+        assertEquals(it.next(), Integer.valueOf(8));
     }
 }

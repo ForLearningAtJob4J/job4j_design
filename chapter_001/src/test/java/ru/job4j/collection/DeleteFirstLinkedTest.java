@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
 public class DeleteFirstLinkedTest {
@@ -31,6 +32,6 @@ public class DeleteFirstLinkedTest {
         linked.add(2);
         linked.deleteFirst();
         Iterator<Integer> it = linked.iterator();
-        assertThat(it.next(), is(2));
+        assertEquals(it.next(), Integer.valueOf(2));
     }
 }

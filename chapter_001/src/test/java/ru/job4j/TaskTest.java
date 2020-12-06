@@ -45,6 +45,6 @@ public class TaskTest {
 
         Map<Task.User, Set<String>> realUsers = Task.convert(users);
         Task.convert(users).forEach((key, value) -> System.out.println(key.name + "=" + value.toString()));
-        assertThat(realUsers.keySet().size(), is(2));
+        assertEquals(realUsers.keySet().size(), 2);
     }
 }

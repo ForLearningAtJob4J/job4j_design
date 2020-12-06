@@ -13,7 +13,7 @@ public class SimpleHashMapTest {
     public void whenAddThenHereItIs() {
         SimpleHashMap<String, User> map = new SimpleHashMap<>();
         map.insert("AAA", new User("George"));
-        assertThat(map.get("AAA"), is(new User("George")));
+        assertEquals(map.get("AAA"), new User("George"));
     }
 
     @Test
@@ -21,7 +21,7 @@ public class SimpleHashMapTest {
         SimpleHashMap<String, User> map = new SimpleHashMap<>();
         map.insert("AAA", new User("George"));
         map.insert("AAB", new User("John"));
-        assertThat(map.size(), is(2));
+        assertEquals(map.size(), 2);
     }
 
     @Test
@@ -30,14 +30,14 @@ public class SimpleHashMapTest {
         map.insert("AAA", new User("George"));
         map.insert("AAB", new User("John"));
         map.delete("AAB");
-        assertThat(map.size(), is(1));
+        assertEquals(map.size(), 1);
     }
 
     @Test
     public void whenAddTheSameThenFalse() {
         SimpleHashMap<String, User> map = new SimpleHashMap<>();
         map.insert("AAA", new User("Ivan"));
-        assertThat(map.insert("AAA", new User("Mary")), is(false));
+        assertFalse(map.insert("AAA", new User("Mary")));
     }
 
     @Test
@@ -46,7 +46,7 @@ public class SimpleHashMapTest {
         map.insert("A", new User());
         Iterator<User> iterator = map.iterator();
         iterator.next();
-        assertThat(iterator.hasNext(), is(false));
+        assertFalse(iterator.hasNext());
     }
 
     @Test(expected = NoSuchElementException.class)

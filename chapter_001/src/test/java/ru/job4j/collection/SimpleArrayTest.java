@@ -1,5 +1,6 @@
 package ru.job4j.collection;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.Matchers.is;
 
@@ -16,7 +17,7 @@ public class SimpleArrayTest {
         SimpleArray<String> array = new SimpleArray<>();
         array.add("first");
         String rsl = array.get(0);
-        assertThat(rsl, is("first"));
+        assertEquals(rsl, "first");
     }
 
     @Test
@@ -24,7 +25,7 @@ public class SimpleArrayTest {
         SimpleArray<String> array = new SimpleArray<>();
         array.add("first");
         String rsl = array.iterator().next();
-        assertThat(rsl, is("first"));
+        assertEquals(rsl, "first");
     }
 
     @Test(expected = IndexOutOfBoundsException.class)

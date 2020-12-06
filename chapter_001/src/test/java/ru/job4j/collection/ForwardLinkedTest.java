@@ -7,7 +7,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 
 public class ForwardLinkedTest {
     @Test
@@ -15,7 +15,7 @@ public class ForwardLinkedTest {
         ForwardLinked<String> list = new ForwardLinked<>();
         list.add("first");
         String rsl = list.get(0);
-        assertThat(rsl, is("first"));
+        assertEquals(rsl, "first");
     }
 
     @Test
@@ -23,7 +23,7 @@ public class ForwardLinkedTest {
         ForwardLinked<String> list = new ForwardLinked<>();
         list.add("first");
         String rsl = list.iterator().next();
-        assertThat(rsl, is("first"));
+        assertEquals(rsl, "first");
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
@@ -59,7 +59,7 @@ public class ForwardLinkedTest {
         ForwardLinked<String> list = new ForwardLinked<>();
         list.add("first");
         list.add("second");
-        assertThat(list.size(), is(2));
+        assertEquals(list.size(), 2);
     }
 
     @Test
@@ -68,8 +68,8 @@ public class ForwardLinkedTest {
         linked.add(1);
         linked.add(2);
         Iterator<Integer> it = linked.iterator();
-        assertThat(it.next(), is(1));
-        assertThat(it.next(), is(2));
+        assertEquals(it.next(), Integer.valueOf(1));
+        assertEquals(it.next(), Integer.valueOf(2));
     }
 
     @Test
@@ -79,8 +79,8 @@ public class ForwardLinkedTest {
         linked.add(2);
         linked.revert();
         Iterator<Integer> it = linked.iterator();
-        assertThat(it.next(), is(2));
-        assertThat(it.next(), is(1));
-        assertThat(it.hasNext(), is(false));
+        assertEquals(it.next(), Integer.valueOf(2));
+        assertEquals(it.next(), Integer.valueOf(1));
+        assertFalse(it.hasNext());
     }
 }

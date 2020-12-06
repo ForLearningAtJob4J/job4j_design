@@ -21,37 +21,37 @@ public class SimpleArrayTest {
     @Test
     public void addTest() {
         array.add("fourth");
-        assertThat(array.size(), is(4));
-        assertThat(array.get(array.size() - 1), is("fourth"));
+        assertEquals(array.size(), 4);
+        assertEquals(array.get(array.size() - 1), "fourth");
     }
 
 
     @Test
     public void setTest() {
         array.set(2, "changed");
-        assertThat(array.size(), is(3));
-        assertThat(array.get(2), is("changed"));
+        assertEquals(array.size(), 3);
+        assertEquals(array.get(2), "changed");
     }
 
     @Test
     public void removeTest() {
         array.remove(1);
-        assertThat(array.size(), is(2));
-        assertThat(array.get(0), is("first"));
+        assertEquals(array.size(), 2);
+        assertEquals(array.get(0), "first");
     }
 
     @Test
     public void getTest() {
-        assertThat(array.get(0), is("first"));
-        assertThat(array.get(2), is("third"));
+        assertEquals(array.get(0), "first");
+        assertEquals(array.get(2), "third");
     }
 
     @Test
     public void iteratorTest() {
         var it = array.iterator();
-        assertThat(it.next(), is("first"));
-        assertThat(it.next(), is("second"));
-        assertThat(it.next(), is("third"));
-        assertThat(it.hasNext(), is(false));
+        assertEquals(it.next(), "first");
+        assertEquals(it.next(), "second");
+        assertEquals(it.next(), "third");
+        assertFalse(it.hasNext());
     }
 }

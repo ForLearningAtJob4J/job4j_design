@@ -13,6 +13,7 @@
         <module>chapter_004</module>
         <module>chapter_005</module>
         <module>find</module>
+        <module>MyAgent</module>
     </modules>
     <name>job4j_design</name>
     <description>A simple job4j_design.</description>

@@ -14,20 +14,14 @@ public class TreeTest {
         tree.add(1, 4);
         tree.add(4, 5);
         tree.add(5, 6);
-        assertThat(
-                tree.findBy(6).isPresent(),
-                is(true)
-        );
+        assertTrue(tree.findBy(6).isPresent());
     }
 
     @Test
     public void when6ElFindNotExitThenOptionEmpty() {
         Tree<Integer> tree = new Tree<>(1);
         tree.add(1, 2);
-        assertThat(
-                tree.findBy(7).isPresent(),
-                is(false)
-        );
+        assertFalse(tree.findBy(7).isPresent());
     }
 
     @Test
@@ -38,10 +32,7 @@ public class TreeTest {
         tree.add(1, 4);
         tree.add(4, 5);
         tree.add(5, 6);
-        assertThat(
-                tree.isBinary(),
-                is(false)
-        );
+        assertFalse(tree.isBinary());
     }
 
     @Test
@@ -51,10 +42,7 @@ public class TreeTest {
         tree.add(1, 3);
         tree.add(2, 4);
         tree.add(2, 5);
-        assertThat(
-                tree.isBinary(),
-                is(true)
-        );
+        assertTrue(tree.isBinary());
     }
 
 }
