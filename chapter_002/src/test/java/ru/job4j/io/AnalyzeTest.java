@@ -33,11 +33,11 @@ public class AnalyzeTest {
         }
         analyze.unavailable(source.getAbsolutePath(), target.getAbsolutePath());
         try (BufferedReader reader = new BufferedReader(new FileReader(target.getAbsolutePath()))) {
-            assertThat(reader.lines().collect(Collectors.toList()),
-                    is(new ArrayList<String>() { {
+            assertEquals(reader.lines().collect(Collectors.toList()),
+                    new ArrayList<String>() { {
                         add("10:57:01;10:59:01;");
                         add("11:01:02;11:02:02;");
-                    } }));
+                    } });
         }
     }
 }

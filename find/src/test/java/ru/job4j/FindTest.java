@@ -44,6 +44,6 @@ public class FindTest {
         try (BufferedReader in = new BufferedReader(new FileReader(resultFile.toString()))) {
             in.lines().peek(System.out::println).forEach(rsl::add);
         }
-        assertThat(rsl.size(), is(2));
+        assertEquals(rsl.size(), 2);
     }
 }

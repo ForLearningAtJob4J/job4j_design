@@ -12,9 +12,9 @@ public class ArgsTest {
     @Test
     public void whenNoArgs() {
         Args args = new Args(new String[] {""});
-        assertThat(args.getDirectory(), is(Paths.get(".")));
-        assertThat(args.getPattern(), is("*.*"));
-        assertThat(args.getMethod(), is(Args.Method.Mask));
+        assertEquals(args.getDirectory(), Paths.get("."));
+        assertEquals(args.getPattern(), "*.*");
+        assertEquals(args.getMethod(), Args.Method.Mask);
     }
 
 //    @Test(expected = IllegalArgumentException.class)

@@ -3,8 +3,7 @@ package ru.job4j.io;
 import org.junit.Test;
 
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 
 public class ConfigTest {
 
@@ -12,10 +11,9 @@ public class ConfigTest {
     public void whenPairWithoutComment() {
         Config config = new Config("../data/app.properties");
         config.load();
-        assertThat(
+        assertEquals(
                 config.value("hibernate.dialect"),
-                is("org.hibernate.dialect.PostgreSQLDialect")
-        );
+                "org.hibernate.dialect.PostgreSQLDialect");
     }
 
     @Test

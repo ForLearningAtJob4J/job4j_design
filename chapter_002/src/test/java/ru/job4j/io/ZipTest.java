@@ -55,6 +55,6 @@ public class ZipTest {
                 c++;
             }
         }
-        assertThat(c, is(2));
+        assertEquals(c, 2);
     }
 }

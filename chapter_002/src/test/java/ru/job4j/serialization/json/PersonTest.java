@@ -16,7 +16,7 @@ public class PersonTest {
 
         /* Преобразуем объект person в json-строку. */
         final Gson gson = new GsonBuilder().create();
-        assertThat(gson.toJson(person), is("{\"male\":false,\"age\":30,\"contact\":{\"phone\":\"11-111\"},\"statuses\":[\"Employed\",\"Married\"]}"));
+        assertEquals(gson.toJson(person), "{\"male\":false,\"age\":30,\"contact\":{\"phone\":\"11-111\"},\"statuses\":[\"Employed\",\"Married\"]}");
     }
 
     @Test
@@ -35,7 +35,7 @@ public class PersonTest {
                         + "[\"Unemployed\",\"Free\"]"
                         + "}";
         final Person personGson = gson.fromJson(personJson, Person.class);
-        assertThat(personGson, is(new Person(true, 35, new Contact("+7(111)111-111-11"),
-                "Unemployed", "Free")));
+        assertEquals(personGson, new Person(true, 35, new Contact("+7(111)111-111-11"),
+                "Unemployed", "Free"));
     }
 }

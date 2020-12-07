@@ -23,7 +23,7 @@ public class DubFinderTest {
             System.out.println(fileInfo.name + " == " + fileInfo.size + " bytes");
             fileInfos.forEach(path -> System.out.println("\t" + path.realPath));
         });
-        assertThat(dubsMap.size(), is(2));
+        assertEquals(dubsMap.size(), 2);
         DubFinder.FileInfo fi1 = new DubFinder.FileInfo("res.txt", 40);
         List<DubFinder.FileInfo> element1 = dubsMap.get(fi1);
         System.out.println(element1);
