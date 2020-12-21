@@ -13,20 +13,22 @@ public class Cache {
     }
 
     public String get(String key) {
-        SoftReference<String> value = null;
-        if (cache.containsKey(key)) {
-            value = cache.get(key);
+        String value = null;
+        if (cache.containsKey(key) && cache.get(key) != null) {
+            try {
+                value = cache.get(key).get();
+            } catch (NullPointerException npe) {
+                npe.printStackTrace();
+            }
         }
 
-        if (value == null || value.get() == null) {
-            System.out.println(value);
-            System.out.println("Needs to be loaded because of value is " + (value == null ? "null" : "not null, but its reference is null"));
-            value = new SoftReference<>(loader.apply(key));
-            cache.put(key, value);
+        if (value == null) {
+            System.out.println("Needs to be loaded");
+            cache.put(key, new SoftReference<>(loader.apply(key)));
         } else {
             System.out.println("No need to be loaded.");
         }
 
-        return value.get();
+        return value;
     }
 }
