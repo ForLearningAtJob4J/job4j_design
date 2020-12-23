@@ -14,12 +14,8 @@ public class Cache {
 
     public String get(String key) {
         String value = null;
-        if (cache.containsKey(key) && cache.get(key) != null) {
-            try {
-                value = cache.get(key).get();
-            } catch (NullPointerException npe) {
-                npe.printStackTrace();
-            }
+        if (cache.containsKey(key)) {
+            value = cache.get(key).get();
         }
 
         if (value == null) {
