@@ -5,6 +5,7 @@ import ru.job4j.srp.model.Employee;
 import ru.job4j.srp.store.MemStore;
 
 import java.util.Calendar;
+import java.util.Locale;
 
 import static org.junit.Assert.*;
 
@@ -20,14 +21,12 @@ public class HRReportTest {
         store.add(worker2);
         Report<Employee> engine = new HRReport(store);
 
-        String expect = "Name; Salary"
-                + System.lineSeparator()
-                + worker2.getName() + "; "
-                + worker2.getSalary()
-                + System.lineSeparator()
-                + worker.getName() + "; "
-                + worker.getSalary()
-                + System.lineSeparator();
+        String expect = String.format(Locale.ROOT,
+                "Name; Salary%n"
+                + "%s; %.2f%n"
+                + "%s; %.2f",
+                worker2.getName(), worker2.getSalary(),
+                worker.getName(), worker.getSalary());
         assertEquals(expect, engine.generate(all -> true));
     }
 }

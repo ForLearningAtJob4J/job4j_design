@@ -9,8 +9,7 @@ import java.util.Locale;
 
 import static org.junit.Assert.*;
 
-public class ITReportTest {
-
+public class XMLReportTest {
     @Test
     public void generateTest() {
         MemStore<Employee> store = new MemStore<>();
@@ -19,14 +18,23 @@ public class ITReportTest {
         store.add(worker);
         Employee worker2 = new Employee("Marcel", now, now, 200);
         store.add(worker2);
-        Report<Employee> engine = new ITReport(store);
+        Report<Employee> engine = new XMLReport(store);
 
         String expect = String.format(Locale.ROOT,
-                "<html><body><table width = '100%%' border = '1' style='border-collapse: collapse; word-break: break-all;'>%n"
-                + "<tr><th>Name</th><th>Hired</th><th>Fired</th><th>Salary</th></tr>%n"
-                + "<tr><td>%1$s</td><td>%2$td.%2$tm.%2$tY</td><td>%3$td.%3$tm.%3$tY</td><td>%4$.2f</td></tr>%n"
-                + "<tr><td>%5$s</td><td>%6$td.%6$tm.%6$tY</td><td>%7$td.%7$tm.%7$tY</td><td>%8$.2f</td></tr>%n"
-                + "</table></body></html>",
+                "<employees>%n"
+                + "  <employee>%n"
+                + "    <name>%1$s</name>%n"
+                + "    <hired>%2$td.%2$tm.%2$tY</hired>%n"
+                + "    <fired>%3$td.%3$tm.%3$tY</fired>%n"
+                + "    <salary>%4$.2f</salary>%n"
+                + "  </employee>%n"
+                + "  <employee>%n"
+                + "    <name>%5$s</name>%n"
+                + "    <hired>%6$td.%6$tm.%6$tY</hired>%n"
+                + "    <fired>%7$td.%7$tm.%7$tY</fired>%n"
+                + "    <salary>%8$.2f</salary>%n"
+                + "  </employee>%n"
+                + "</employees>",
                 worker.getName(), worker.getHired(), worker.getFired(), worker.getSalary(),
                 worker2.getName(), worker2.getHired(), worker2.getFired(), worker2.getSalary());
         assertEquals(expect, engine.generate(all -> true));

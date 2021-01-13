@@ -6,7 +6,9 @@ import ru.job4j.srp.store.MemStore;
 
 import java.util.Calendar;
 import java.util.LinkedHashMap;
+import java.util.Locale;
 
+import static java.lang.String.format;
 import static org.junit.Assert.assertEquals;
 
 public class CommonReportTest {
@@ -23,23 +25,18 @@ public class CommonReportTest {
                 .setFields(
                         new LinkedHashMap<>() { {
                             put("Name", Employee::getName);
-                            put("Hired", e -> e.getHired().toString());
-                            put("Fired", e -> e.getFired().toString());
-                            put("Salary", e -> Double.toString(e.getSalary()));
+                            put("Hired", e -> format("%1$td.%1$tm.%1$tY", e.getHired()));
+                            put("Fired", e -> format("%1$td.%1$tm.%1$tY", e.getFired()));
+                            put("Salary", e -> format(Locale.ROOT, "%.2f", e.getSalary()));
                         } });
 
-        String expect = "Name; Hired; Fired; Salary"
-                + System.lineSeparator()
-                + worker.getName() + "; "
-                + worker.getHired() + "; "
-                + worker.getFired() + "; "
-                + worker.getSalary()
-                + System.lineSeparator()
-                + worker2.getName() + "; "
-                + worker2.getHired() + "; "
-                + worker2.getFired() + "; "
-                + worker2.getSalary()
-                + System.lineSeparator();
+        String expect = format(Locale.ROOT,
+                "Name; Hired; Fired; Salary%n"
+                + "%1$s; %2$td.%2$tm.%2$tY; %3$td.%3$tm.%3$tY; %4$.2f%n"
+                + "%5$s; %6$td.%6$tm.%6$tY; %7$td.%7$tm.%7$tY; %8$.2f",
+                worker.getName(), worker.getHired(), worker.getFired(), worker.getSalary(),
+                worker2.getName(), worker2.getHired(), worker2.getFired(), worker2.getSalary()
+        );
         assertEquals(expect, engine.generate(all -> true));
     }
 }

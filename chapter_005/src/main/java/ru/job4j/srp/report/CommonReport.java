@@ -7,19 +7,36 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class CommonReport<T> implements Report<T> {
+    public static final String LS = System.lineSeparator(); //"\n"
     private final Store<T> store;
+
     private String header = "";
     private String footer = "";
-    private String lineBegin = "";
-    private String lineSeparator = "; ";
-    private String lineEnd = System.lineSeparator();
+
+    private boolean hasCaption = true;
     private String captionBegin = "";
-    private String captionSeparator = "; ";
-    private String captionEnd = System.lineSeparator();
+    private String captionEnd = LS;
+    private String captionDelimiter = "; ";
+
+    private String lineBegin = "";
+    private String lineSeparator = LS;
+    private String lineEnd = "";
+
+    private String lineDelimiter = "; ";
 
     private Map<String, Function<T, String>> fieldGen = new LinkedHashMap<>();
 
     private Comparator<T> comparator;
+
+    public CommonReport<T> setHasCaption(boolean hasCaption) {
+        this.hasCaption = hasCaption;
+        return this;
+    }
+
+    public CommonReport<T> setLineSeparator(String lineSeparator) {
+        this.lineSeparator = lineSeparator;
+        return this;
+    }
 
     public CommonReport(Store<T> store) {
         this.store = store;
@@ -51,8 +68,8 @@ public class CommonReport<T> implements Report<T> {
         return this;
     }
 
-    public CommonReport<T> setLineSeparator(String lineSeparator) {
-        this.lineSeparator = lineSeparator;
+    public CommonReport<T> setLineDelimiter(String lineDelimiter) {
+        this.lineDelimiter = lineDelimiter;
         return this;
     }
 
@@ -62,24 +79,28 @@ public class CommonReport<T> implements Report<T> {
         return this;
     }
 
-    public CommonReport<T> setCaptionSeparator(String captionSeparator) {
-        this.captionSeparator = captionSeparator;
+    public CommonReport<T> setCaptionDelimiter(String captionDelimiter) {
+        this.captionDelimiter = captionDelimiter;
         return this;
     }
 
     private void generateHeader(StringBuilder result) {
         if (!header.isEmpty()) {
-            result.append(header).append(System.lineSeparator());
+            result.append(header).append(LS);
         }
-        if (!captionBegin.isEmpty()) {
-            result.append(captionBegin);
-        }
-        for (var fieldName: fieldGen.keySet()) {
-            result.append(fieldName).append(captionSeparator);
-        }
-        result.delete(result.length() - captionSeparator.length(), result.length());
-        if (!captionEnd.isEmpty()) {
-            result.append(captionEnd);
+        if (hasCaption) {
+            if (!captionBegin.isEmpty()) {
+                result.append(captionBegin);
+            }
+
+            for (var fieldName: fieldGen.keySet()) {
+                result.append(fieldName).append(captionDelimiter);
+            }
+            result.delete(result.length() - captionDelimiter.length(), result.length());
+
+            if (!captionEnd.isEmpty()) {
+                result.append(captionEnd);
+            }
         }
     }
 
@@ -93,12 +114,18 @@ public class CommonReport<T> implements Report<T> {
                 result.append(lineBegin);
             }
             for (var getter: fieldGen.values()) {
-                result.append(getter.apply(employee)).append(lineSeparator);
+                result.append(getter.apply(employee)).append(lineDelimiter);
             }
-            result.delete(result.length() - lineSeparator.length(), result.length());
+            result.delete(result.length() - lineDelimiter.length(), result.length());
             if (!lineEnd.isEmpty()) {
                 result.append(lineEnd);
             }
+            if (!lineSeparator.isEmpty()) {
+                result.append(lineSeparator);
+            }
+        }
+        if (!lineSeparator.isEmpty()) {
+            result.delete(result.length() - lineSeparator.length(), result.length());
         }
     }
 

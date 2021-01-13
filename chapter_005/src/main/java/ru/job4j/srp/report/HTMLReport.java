@@ -7,9 +7,10 @@ import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.function.Predicate;
 
-public class ITReport implements Report<Employee> {
+public class HTMLReport implements Report<Employee> {
     CommonReport<Employee> commonReport;
-    public ITReport(Store<Employee> store) {
+
+    public HTMLReport(Store<Employee> store) {
         commonReport = new CommonReport<>(store);
     }
 
@@ -23,12 +24,14 @@ public class ITReport implements Report<Employee> {
                 .setLineDelimiter("</td><td>")
                 .setLineSeparator(System.lineSeparator())
                 .setFields(
-                        new LinkedHashMap<>() { {
-                            put("Name", Employee::getName);
-                            put("Hired", e -> String.format("%1$td.%1$tm.%1$tY", e.getHired()));
-                            put("Fired", e -> String.format("%1$td.%1$tm.%1$tY", e.getHired()));
-                            put("Salary", e -> String.format(Locale.ROOT, "%.2f", e.getSalary()));
-                        } })
+                        new LinkedHashMap<>() {
+                            {
+                                put("Name", Employee::getName);
+                                put("Hired", e -> String.format("%1$td.%1$tm.%1$tY", e.getHired()));
+                                put("Fired", e -> String.format("%1$td.%1$tm.%1$tY", e.getFired()));
+                                put("Salary", e -> String.format(Locale.ROOT, "%.2f", e.getSalary()));
+                            }
+                        })
                 .setFooter(System.lineSeparator() + "</table></body></html>");
         return commonReport.generate(filter);
     }
