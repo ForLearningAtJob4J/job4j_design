@@ -1,7 +1,7 @@
-package ru.job4j.lsp;
+package ru.job4j.lsp.productstorage;
 
-import ru.job4j.lsp.products.Food;
-import ru.job4j.lsp.stores.Store;
+import ru.job4j.lsp.productstorage.products.Food;
+import ru.job4j.lsp.productstorage.stores.Store;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

@@ -1,6 +1,6 @@
-package ru.job4j.lsp.stores;
+package ru.job4j.lsp.productstorage.stores;
 
-import ru.job4j.lsp.products.Food;
+import ru.job4j.lsp.productstorage.products.Food;
 
 import java.util.ArrayList;
 import java.util.List;

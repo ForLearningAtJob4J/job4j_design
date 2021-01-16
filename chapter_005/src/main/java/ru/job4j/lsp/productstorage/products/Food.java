@@ -1,9 +1,9 @@
-package ru.job4j.lsp.products;
+package ru.job4j.lsp.productstorage.products;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
-import static ru.job4j.lsp.ControlQuality.datePointer;
+import static ru.job4j.lsp.productstorage.ControlQuality.datePointer;
 
 public abstract class Food {
     private String name;

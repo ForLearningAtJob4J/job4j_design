@@ -1,13 +1,13 @@
-package ru.job4j.lsp;
+package ru.job4j.lsp.productstorage;
 
 import org.junit.Test;
-import ru.job4j.lsp.products.Bread;
-import ru.job4j.lsp.products.Food;
-import ru.job4j.lsp.products.Milk;
-import ru.job4j.lsp.stores.Shop;
-import ru.job4j.lsp.stores.Store;
-import ru.job4j.lsp.stores.Trash;
-import ru.job4j.lsp.stores.Warehouse;
+import ru.job4j.lsp.productstorage.products.Bread;
+import ru.job4j.lsp.productstorage.products.Food;
+import ru.job4j.lsp.productstorage.products.Milk;
+import ru.job4j.lsp.productstorage.stores.Shop;
+import ru.job4j.lsp.productstorage.stores.Store;
+import ru.job4j.lsp.productstorage.stores.Trash;
+import ru.job4j.lsp.productstorage.stores.Warehouse;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
