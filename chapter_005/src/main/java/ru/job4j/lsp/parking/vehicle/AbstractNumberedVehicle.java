@@ -1,8 +1,7 @@
 package ru.job4j.lsp.parking.vehicle;
 
-import ru.job4j.lsp.parking.vehicle.Vehicle;
-
 public abstract class AbstractNumberedVehicle implements Vehicle {
+    protected int vehicleSize = 1;
     private final String number;
 
     public AbstractNumberedVehicle(String number) {
@@ -11,7 +10,7 @@ public abstract class AbstractNumberedVehicle implements Vehicle {
 
     @Override
     public int getVehicleSize() {
-        throw new UnsupportedOperationException("YOU SHOULDN'T SEE ME");
+        return vehicleSize;
     }
 
     @Override

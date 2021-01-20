@@ -13,17 +13,17 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class ParkingTest {
-
+    static final int TRUCKSIZE = 2;
     @Test
-    public void whenParking1Car0TrucksAnd1Car() {
-        Parking parking = new Parking(1, 0);
+    public void whenParkingIs1Car0TrucksAnd1Car() {
+        Parking parking = new Parking(1, 0, TRUCKSIZE);
         Vehicle car = new Car("CAR");
         assertTrue(parking.in(car));
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void whenParking2Car0TrucksAnd2CarSameNumber() {
-        Parking parking = new Parking(1, 0);
+    public void whenParkingIs2Car0TrucksAnd2CarSameNumber() {
+        Parking parking = new Parking(1, 0, TRUCKSIZE);
         Vehicle car = new Car("CAR");
         Vehicle carNotLegal = new Car("CAR");
         assertTrue(parking.in(car));
@@ -31,65 +31,75 @@ public class ParkingTest {
     }
 
     @Test
-    public void whenParking1Car0TrucksAnd1Truck() {
-        Parking parking = new Parking(1, 0);
-        Vehicle truck = new Truck("TRUCK");
+    public void whenParkingIs1Car0TrucksAnd1Truck() {
+        Parking parking = new Parking(1, 0, TRUCKSIZE);
+        Vehicle truck = new Truck("TRUCK", TRUCKSIZE);
         assertFalse(parking.in(truck));
     }
 
     @Test
     public void whenParkingIs1Car1TruckAnd1Car2Trucks() {
-        Parking parking = new Parking(1, 1);
+        Parking parking = new Parking(1, 1, TRUCKSIZE);
         Vehicle car = new Car("CAR");
-        Vehicle truck1 = new Car("TRUCK");
-        Vehicle truck2 = new Car("ANOTHERTRUCK");
+        Vehicle truck1 = new Truck("TRUCK", TRUCKSIZE);
+        Vehicle truck2 = new Truck("ANOTHERTRUCK", TRUCKSIZE);
         assertTrue(parking.in(car));
         assertTrue(parking.in(truck1));
         assertFalse(parking.in(truck2));
     }
 
     @Test
-    public void whenParkingIs2Cars1TruckAnd2Trucks() {
-        Parking parking = new Parking(2, 1);
-        Vehicle truck1 = new Truck("TRUCK");
-        Vehicle truck2 = new Truck("ANOTHERTRUCK");
+    public void whenParkingIsTRUCKSIZECars1TruckAnd2Trucks() {
+        Parking parking = new Parking(TRUCKSIZE, 1, TRUCKSIZE);
+        Vehicle truck1 = new Truck("TRUCK", TRUCKSIZE);
+        Vehicle truck2 = new Truck("ANOTHERTRUCK", TRUCKSIZE);
         assertTrue(parking.in(truck1));
         assertTrue(parking.in(truck2));
     }
 
     @Test
-    public void whenParkingIs2Cars1TruckAnd1Car2Trucks() {
-        Parking parking = new Parking(2, 1);
+    public void whenParkingIsTRUCKSIZECars1TruckAnd1Car2Trucks() {
+        Parking parking = new Parking(TRUCKSIZE, 1, TRUCKSIZE);
         Vehicle car = new Car("CAR");
-        Vehicle truck1 = new Truck("TRUCK");
-        Vehicle truck2 = new Truck("ANOTHERTRUCK");
+        Vehicle truck1 = new Truck("TRUCK", TRUCKSIZE);
+        Vehicle truck2 = new Truck("ANOTHERTRUCK", TRUCKSIZE);
         assertTrue(parking.in(car));
         assertTrue(parking.in(truck1));
         assertFalse(parking.in(truck2));
     }
 
     @Test
-    public void whenParkingNotDefault2Cars0TrucksAnd1Car1Truck() {
+    public void whenParkingNotDefaultIsTRUCKSIZECars0TrucksAnd1Car1Truck() {
         List<ParkingSlot> slots = new ArrayList<>(List.of(
-                new CarParking(2)
+                new CarParking(TRUCKSIZE)
         ));
         Parking parking = new Parking(slots);
         Vehicle car = new Car("CAR");
         assertTrue(parking.in(car));
-
-        Vehicle truck = new Truck("TRUCK");
+        Vehicle truck = new Truck("TRUCK", TRUCKSIZE);
         assertFalse(parking.in(truck));
     }
 
     @Test
-    public void whenParkingIs2Car1TruckAnd1Car1TruckLater1CarOut1TruckIn() {
-        Parking parking = new Parking(2, 1);
+    public void whenParkingIsTRUCKSIZECar1TruckAnd1Car1TruckLater1CarOut1Truck() {
+        Parking parking = new Parking(TRUCKSIZE, 1, TRUCKSIZE);
         Vehicle car = new Car("CAR");
-        Vehicle truck1 = new Car("TRUCK");
+        Vehicle truck1 = new Truck("TRUCK", TRUCKSIZE);
         assertTrue(parking.in(car));
         assertTrue(parking.in(truck1));
         assertEquals(car, parking.out("CAR"));
-        Vehicle truck2 = new Car("ANOTHERTRUCK");
+        Vehicle truck2 = new Truck("ANOTHERTRUCK", TRUCKSIZE);
         assertTrue(parking.in(truck2));
+    }
+
+    @Test
+    public void whenParkingIsTRUCKSIZECar1TruckAnd0Cars2TrucksLater1TruckOut1Truck() {
+        Parking parking = new Parking(TRUCKSIZE, 1, TRUCKSIZE);
+        Vehicle truck1 = new Truck("TRUCK", TRUCKSIZE);
+        Vehicle truck2 = new Truck("ANOTHERTRUCK", TRUCKSIZE);
+        assertTrue(parking.in(truck1));
+        assertTrue(parking.in(truck2));
+        assertEquals(truck1, parking.out("TRUCK"));
+        assertTrue(parking.in(truck1));
     }
 }

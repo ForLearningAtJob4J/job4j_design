@@ -10,10 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Parking {
-    private List<ParkingSlot> slots;
+    private final List<ParkingSlot> slots;
 
-    public Parking(int carPlacesCount, int trackPlacesCount) {
-        this.slots = new ArrayList<>(List.of(new CarParking(carPlacesCount), new TruckParking(trackPlacesCount)));
+    public Parking(int carPlacesCount, int trackPlacesCount, int truckPlaceSize) {
+        this.slots = new ArrayList<>(List.of(new CarParking(carPlacesCount), new TruckParking(trackPlacesCount, truckPlaceSize)));
     }
 
     public Parking(List<ParkingSlot> slots) {

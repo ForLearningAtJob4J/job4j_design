@@ -3,8 +3,8 @@ package ru.job4j.lsp.parking.parkingslot;
 import ru.job4j.lsp.parking.vehicle.Vehicle;
 
 public class TruckParking extends AbstractParkingSlot {
-    public TruckParking(int slotSize) {
-        super(false, false, slotSize, 2);
+    public TruckParking(int slotSize, int vehicleSize) {
+        super(false, false, slotSize, vehicleSize);
     }
 
     @Override
