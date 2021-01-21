@@ -8,5 +8,6 @@ public interface ParkingSlot {
     boolean canParkBigger();
     boolean canParkSmaller();
     boolean in(Vehicle vehicle);
+    boolean isIn(String number);
     Vehicle out(String number);
 }

@@ -21,10 +21,30 @@ public class Parking {
     }
 
     public boolean in(Vehicle vehicle) {
-        return false;
+        if (slots.stream().anyMatch(parkingSlot -> parkingSlot.isIn(vehicle.getNumber()))) {
+            throw new IllegalArgumentException("Car with this number is already at the parking! Call the police! :)");
+        }
+
+        return slots.stream()
+                .filter(slot -> slot.getVehicleSize() == vehicle.getVehicleSize())
+                .anyMatch(slots -> slots.in(vehicle))
+                || slots.stream()
+                .filter(slot -> slot.getVehicleSize() < vehicle.getVehicleSize() && slot.canParkBigger())
+                .anyMatch(slots -> slots.in(vehicle))
+                || slots.stream()
+                .filter(slot -> slot.getVehicleSize() > vehicle.getVehicleSize() && slot.canParkSmaller())
+                .anyMatch(slots -> slots.in(vehicle));
     }
 
     public Vehicle out(String number) {
-        return null;
+        Vehicle ret = null;
+        for (ParkingSlot slot : slots) {
+            Vehicle out = slot.out(number);
+            if (out != null) {
+                ret = out;
+                break;
+            }
+        }
+        return ret;
     }
 }
