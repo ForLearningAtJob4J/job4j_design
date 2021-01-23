@@ -1,4 +1,4 @@
-package ru.job4j.isp;
+package ru.job4j.isp.bad;
 
 public interface BadReport {
     String generateText();
