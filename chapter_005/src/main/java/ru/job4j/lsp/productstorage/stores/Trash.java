@@ -9,6 +9,7 @@ public class Trash extends AbstractStore {
     public Trash() {
         this(new ArrayList<>());
     }
+
     public Trash(List<Food> foods) {
         super(foods, food -> food.getTimePercent() == 100);
     }

@@ -12,44 +12,44 @@ public abstract class Food {
     private Double price = 0d;
     private int discount = 0;
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getName() {
         return name;
     }
 
-    public void setExpiredDate(LocalDateTime expiredDate) {
-        this.expiredDate = expiredDate;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public LocalDateTime getExpiredDate() {
         return expiredDate;
     }
 
-    public void setCreatedDate(LocalDateTime createdDate) {
-        this.createdDate = createdDate;
+    public void setExpiredDate(LocalDateTime expiredDate) {
+        this.expiredDate = expiredDate;
     }
 
     public LocalDateTime getCreatedDate() {
         return createdDate;
     }
 
-    public void setPrice(Double price) {
-        this.price = price;
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
     }
 
     public Double getPrice() {
         return price;
     }
 
-    public void setDiscount(int i) {
-        discount = i;
+    public void setPrice(Double price) {
+        this.price = price;
     }
 
     public int getDiscount() {
         return discount;
+    }
+
+    public void setDiscount(int i) {
+        discount = i;
     }
 
     public int getTimePercent() {

@@ -9,6 +9,7 @@ public class Warehouse extends AbstractStore {
     public Warehouse() {
         this(new ArrayList<>());
     }
+
     public Warehouse(List<Food> foods) {
         super(foods, food -> food.getTimePercent() < 25);
     }

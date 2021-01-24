@@ -12,35 +12,32 @@ public class ControlQuality {
     public static LocalDateTime datePointer = LocalDateTime.now();
 
     List<Store> stores;
+
     ControlQuality(List<Store> stores) {
         this.stores = stores;
     }
 
-    void redistribute(List<Food> foods) {
-        stores.forEach(store -> store.getFoods().clear());
+    void resort(List<Food> foods) {
+        stores.forEach(Store::clear);
 
         foods.forEach(
                 food -> stores.stream()
                         .filter(s -> s.match(food))
-                        .findFirst().ifPresent(s -> {
-                            if (!s.getFoods().contains(food)) {
-                                s.getFoods().add(food);
-                            }
-                        })
-        );
+                        .findFirst().ifPresent(s -> s.add(food)
+                        ));
     }
 
-    void redistribute() {
-        redistribute(stores.stream()
-                .flatMap(store -> store.getFoods().stream())
+    void resort() {
+        resort(stores.stream()
+                .flatMap(store -> store.clear().stream())
                 .collect(Collectors.toCollection(ArrayList::new)));
     }
 
-    void redistributeAddition(List<Food> foods) {
+    void resortWithNew(List<Food> foods) {
         List<Food> list = stores.stream()
-                .flatMap(store -> store.getFoods().stream())
+                .flatMap(store -> store.clear().stream())
                 .collect(Collectors.toCollection(ArrayList::new));
         list.addAll(foods);
-        redistribute(list);
+        resort(list);
     }
 }

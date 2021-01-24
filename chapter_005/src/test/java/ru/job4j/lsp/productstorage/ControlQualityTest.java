@@ -26,8 +26,8 @@ public class ControlQualityTest {
         Store shop = new Shop(new ArrayList<>(List.of(food)));
         Store trash = new Trash();
         ControlQuality controlQuality = new ControlQuality(List.of(warehouse, shop, trash));
-        controlQuality.redistribute();
-        assertEquals(1, warehouse.getFoods().size());
+        controlQuality.resort();
+        assertEquals(1, warehouse.clear().size());
     }
 
     @Test
@@ -40,9 +40,10 @@ public class ControlQualityTest {
         Store shop = new Shop();
         Store trash = new Trash(new ArrayList<>(List.of(food)));
         ControlQuality controlQuality = new ControlQuality(List.of(warehouse, shop, trash));
-        controlQuality.redistribute();
-        assertEquals(1, shop.getFoods().size());
-        assertEquals(20, shop.getFoods().get(0).getDiscount());
+        controlQuality.resort();
+        List<Food> shopBuffer = shop.clear();
+        assertEquals(1, shopBuffer.size());
+        assertEquals(20, shopBuffer.get(0).getDiscount());
     }
 
     @Test
@@ -54,9 +55,10 @@ public class ControlQualityTest {
         Store shop = new Shop();
         Store trash = new Trash();
         ControlQuality controlQuality = new ControlQuality(List.of(warehouse, shop, trash));
-        controlQuality.redistribute(new ArrayList<>(List.of(food)));
-        assertEquals(1, shop.getFoods().size());
-        assertEquals(50, shop.getFoods().get(0).getDiscount());
+        controlQuality.resort(new ArrayList<>(List.of(food)));
+        List<Food> shopBuffer = shop.clear();
+        assertEquals(1, shopBuffer.size());
+        assertEquals(50, shopBuffer.get(0).getDiscount());
     }
 
     @Test
@@ -69,9 +71,10 @@ public class ControlQualityTest {
         Store shop = new Shop();
         Store trash = new Trash();
         ControlQuality controlQuality = new ControlQuality(List.of(warehouse, shop, trash));
-        controlQuality.redistribute(new ArrayList<>(List.of(food)));
-        assertEquals(1, shop.getFoods().size());
-        assertEquals(30, shop.getFoods().get(0).getDiscount());
+        controlQuality.resort(new ArrayList<>(List.of(food)));
+        List<Food> shopBuffer = shop.clear();
+        assertEquals(1, shopBuffer.size());
+        assertEquals(30, shopBuffer.get(0).getDiscount());
     }
 
     @Test
@@ -86,7 +89,7 @@ public class ControlQualityTest {
         Store shop = new Shop(new ArrayList<>(List.of(food1)));
         Store trash = new Trash();
         ControlQuality controlQuality = new ControlQuality(List.of(warehouse, shop, trash));
-        controlQuality.redistributeAddition(new ArrayList<>(List.of(food2)));
-        assertEquals(2, trash.getFoods().size());
+        controlQuality.resortWithNew(new ArrayList<>(List.of(food2)));
+        assertEquals(2, trash.clear().size());
     }
 }
