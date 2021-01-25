@@ -10,16 +10,16 @@ import java.util.List;
 import java.util.Objects;
 
 public class Person {
-    private final boolean male;
-    private int age;
+    private final Boolean male;
+    private Integer age;
     private final Contact contact;
     private final String[] statuses;
 
-    public boolean getMale() {
+    public Boolean getMale() {
         return male;
     }
 
-    public int getAge() {
+    public Integer getAge() {
         return age;
     }
 
@@ -58,7 +58,7 @@ public class Person {
         }
         Person person = (Person) o;
         return male == person.male
-                && age == person.age
+                && age.equals(person.age)
                 && Objects.equals(contact, person.contact)
                 && Arrays.equals(statuses, person.statuses);
     }
