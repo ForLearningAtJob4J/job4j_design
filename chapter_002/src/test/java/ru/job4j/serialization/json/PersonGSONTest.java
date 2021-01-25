@@ -4,10 +4,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.junit.Test;
 
-import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
-public class PersonTest {
+public class PersonGSONTest {
 
     @Test
     public void testObjectToJsonByGson() {
