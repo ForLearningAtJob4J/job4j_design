@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<computer>
+    <onBalance>true</onBalance>
+    <value>1000</value>
+    <model>Micro-86M</model>
+    <owner>
+        <male>true</male>
+        <age>25</age>;
+        <contact phone="11-111"/>
+        <statuses>
+            <status>Married</status>
+            <status>Employed</status>
+        </statuses>
+    </owner>
+    <previousOwners>
+        <owner>
+            <male>false</male>
+            <age>25</age>;
+            <contact phone="11-112"/>
+            <statuses>
+                <status>Single</status>
+                <status>Employed</status>
+            </statuses>
+        </owner>
+        <owner>
+            <male>true</male>
+            <age>35</age>;
+            <contact phone="11-113"/>
+            <statuses>
+                <status>Single</status>
+                <status>Unemployed</status>
+            </statuses>
+        </owner>
+    </previousOwners>
+</computer>
