@@ -1,5 +1,5 @@
 package ru.job4j.isp;
 
-public interface IAction {
+public interface Action {
     void doAction();
 }

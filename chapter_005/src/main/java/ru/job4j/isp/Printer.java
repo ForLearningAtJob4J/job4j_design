@@ -1,5 +1,5 @@
 package ru.job4j.isp;
 
-public interface IPrinter {
+public interface Printer {
     void print(String text);
 }
