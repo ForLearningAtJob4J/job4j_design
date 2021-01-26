@@ -3,7 +3,7 @@ package ru.job4j.serialization.json;
 import org.json.JSONObject;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class PersonJSONTest {
 
@@ -15,6 +15,6 @@ public class PersonJSONTest {
         /* Преобразуем объект person в json-строку. */
         JSONObject jsonObjectFromString = new JSONObject("{\"male\":false,\"age\":30,\"contact\":{\"phone\":\"11-111\"},\"statuses\":[\"Employed\",\"Married\"]}");
         JSONObject jsonObjectFromObject = new JSONObject(person);
-        assertEquals(jsonObjectFromString.toString(), jsonObjectFromObject.toString());
+        assertTrue(jsonObjectFromString.similar(jsonObjectFromObject));
     }
 }
