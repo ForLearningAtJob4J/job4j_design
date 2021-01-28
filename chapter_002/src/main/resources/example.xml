@@ -8,8 +8,8 @@
         <age>25</age>;
         <contact phone="11-111"/>
         <statuses>
-            <status>Married</status>
-            <status>Employed</status>
+            <statuses>Married</statuses>
+            <statuses>Employed</statuses>
         </statuses>
     </owner>
     <previousOwners>
@@ -18,8 +18,8 @@
             <age>25</age>;
             <contact phone="11-112"/>
             <statuses>
-                <status>Single</status>
-                <status>Employed</status>
+                <statuses>Single</statuses>
+                <statuses>Employed</statuses>
             </statuses>
         </owner>
         <owner>
@@ -27,8 +27,8 @@
             <age>35</age>;
             <contact phone="11-113"/>
             <statuses>
-                <status>Single</status>
-                <status>Unemployed</status>
+                <statuses>Single</statuses>
+                <statuses>Unemployed</statuses>
             </statuses>
         </owner>
     </previousOwners>
