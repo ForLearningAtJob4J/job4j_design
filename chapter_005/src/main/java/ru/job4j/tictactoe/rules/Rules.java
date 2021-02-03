@@ -2,12 +2,8 @@ package ru.job4j.tictactoe.rules;
 
 import ru.job4j.tictactoe.players.Player;
 
-public interface Rules {
-    boolean hasWinner();
+public interface Rules<T> {
+    Player<T> nextPlayer();
 
-    boolean hasGap();
-
-    Player nextPlayer();
-
-    Player getPlayer();
+    Player<T> getPlayer();
 }

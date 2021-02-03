@@ -12,4 +12,9 @@ public class OutputStreamMarkO implements Mark<OutputStream> {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public boolean isMark(String mark) {
+        return "O".equals(mark);
+    }
 }

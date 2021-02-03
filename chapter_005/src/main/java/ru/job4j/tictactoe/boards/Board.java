@@ -8,5 +8,9 @@ import java.io.IOException;
 public interface Board<T> {
     void printBoard(T screen) throws IOException;
 
-    void setMark(Position position, Mark<T> mark);
+    boolean setMark(Position position, Mark<T> mark);
+
+    boolean hasWinner();
+
+    boolean hasGap();
 }

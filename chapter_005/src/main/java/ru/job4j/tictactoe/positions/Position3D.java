@@ -9,20 +9,6 @@ public class Position3D extends Position2D {
     }
 
     @Override
-    public int getDimension(int dimensionNumber) {
-        switch (dimensionNumber) {
-            case 1:
-                return x;
-            case 2:
-                return y;
-            case 3:
-                return z;
-            default:
-                throw new IllegalArgumentException("Position3D has only 3 dimensions");
-        }
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -44,10 +30,5 @@ public class Position3D extends Position2D {
         int result = super.hashCode();
         result = 31 * result + z;
         return result;
-    }
-
-    @Override
-    public int getDimensionsCount() {
-        return 3;
     }
 }

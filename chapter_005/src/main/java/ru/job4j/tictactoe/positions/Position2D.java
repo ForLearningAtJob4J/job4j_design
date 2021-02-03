@@ -10,23 +10,6 @@ public class Position2D implements Position {
     }
 
     @Override
-    public int getDimension(int dimensionNumber) {
-        switch (dimensionNumber) {
-            case 1:
-                return x;
-            case 2:
-                return y;
-            default:
-                throw new IllegalArgumentException("Position2D has only 2 dimensions");
-        }
-    }
-
-    @Override
-    public int getDimensionsCount() {
-        return 2;
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;

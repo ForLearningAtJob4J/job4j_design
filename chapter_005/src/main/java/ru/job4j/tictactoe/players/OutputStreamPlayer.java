@@ -2,14 +2,13 @@ package ru.job4j.tictactoe.players;
 
 import ru.job4j.tictactoe.marks.Mark;
 
-import java.io.InputStream;
 import java.io.OutputStream;
 
-public class OutputStreamInputStreamPlayer implements Player<InputStream, OutputStream> {
+public class OutputStreamPlayer implements Player<OutputStream> {
     String name;
-    Mark mark;
+    Mark<OutputStream> mark;
 
-    public OutputStreamInputStreamPlayer(String name, Mark mark) {
+    public OutputStreamPlayer(String name, Mark<OutputStream> mark) {
         this.name = name;
         this.mark = mark;
     }
@@ -19,7 +18,7 @@ public class OutputStreamInputStreamPlayer implements Player<InputStream, Output
         return name;
     }
 
-    public Mark getMark() {
+    public Mark<OutputStream> getMark() {
         return mark;
     }
 }

@@ -13,4 +13,9 @@ public class OutputStreamMarkEmpty implements Mark<OutputStream> {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public boolean isMark(String mark) {
+        return "-".equals(mark);
+    }
 }
